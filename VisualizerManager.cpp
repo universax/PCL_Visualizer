@@ -6,9 +6,11 @@ using namespace std;
 VisualizerManager::VisualizerManager()
 {
 	showCloud.reset(new pcl::PointCloud<PointType>());
-	viewer.reset(new pcl::visualization::PCLVisualizer("VLP16 Viewer"));
+	viewer.reset(new pcl::visualization::PCLVisualizer("Point Viewer"));
 	setupVisualizer(showCloud);
 	editMode = Edit_Mode_None;
+	running = true;
+	registration = true;
 	updateDebugInfo();
 }
 
@@ -66,7 +68,7 @@ void VisualizerManager::setupVisualizer(pcl::PointCloud<PointType>::Ptr inputClo
 void VisualizerManager::setDefaultViewPoints() {
 	//View Points
 	viewer->initCameraParameters();
-	viewer->setCameraPosition(3.0, 3.0, -3.0, 0, 0, 0, 1);	//3D
+	viewer->setCameraPosition(1.0, -3.0, 1.0, 0, 0, 1, 1);	//3D
 	viewer->setCameraPosition(0, 0.0, 6.0, 0, 1, 0, 2);	//Top
 	viewer->setCameraPosition(0, -3.0, 0.0, 0, 0, 1, 3);	//Front
 	viewer->setCameraPosition(-4.0, 0.0, 0.0, -1, 0, 0, 4);	//Side
@@ -138,6 +140,16 @@ void VisualizerManager::keyboardEventOccurred(const pcl::visualization::Keyboard
 	{
 		sensor.loadSensorPostureData();
 		editMode = Edit_Mode_Load;
+	}
+	//-----Registration
+	if (inputKey == "r")
+	{
+		registration = false;
+	}
+	//-----Close app
+	if (inputKey == "q")
+	{
+		running = false;
 	}
 	//-----Change Edit Mode
 	if (inputKey == "1")

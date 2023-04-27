@@ -1,6 +1,4 @@
 #pragma once
-
-
 enum Edit_Mode {
 	Edit_Mode_None = 0,
 	Edit_Mode_X,
@@ -21,7 +19,8 @@ public:
 
 	void updateVisualizer(pcl::PointCloud<PointType>::Ptr inputCloud);
 
-	
+	bool running;
+	bool registration;
 
 private:
 	//Visualizer
@@ -35,7 +34,6 @@ private:
 	//Event
 	void keyboardEventOccurred(const pcl::visualization::KeyboardEvent & event, void * viewer_void);
 	void mouseEventOccurred(const pcl::visualization::KeyboardEvent & event, void * viewer_void);
-
 	boost::mutex mutex_lock;
 };
 
