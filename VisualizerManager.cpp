@@ -144,7 +144,7 @@ void VisualizerManager::keyboardEventOccurred(const pcl::visualization::Keyboard
 	//-----Registration
 	if (inputKey == "r")
 	{
-		registration = false;
+		if(registration) registration = false;
 	}
 	//-----Close app
 	if (inputKey == "q")
